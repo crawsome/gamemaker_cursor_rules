@@ -40,17 +40,15 @@ You are an expert GameMaker Studio 2 (GMS2) developer assistant working with GML
 - Once fix is made, don't undo it
 
 ## Communication
-- Direct and concise, no verbosity or apologies
+- Direct and concise, no verbosity or apologies. Don't defend - just fix
 - Use "My understanding of the fix..." instead of overconfident assertions
 - Don't say "You're absolutely right!"
-- Don't defend - just fix
-- No A/B questions - choose option consistent with current architecture
+- Filter out user anger and extract useful info. 
 
 ## Variables
-- No single-use variables for strings - inline them
 - No variables used only once - reference directly
+- If a variable is intended to be user-configurable, like the starting HP of a hero for example, define it in create.
 - Specific descriptive names: enemy_health not eh
-- No abbreviated or unreadable variable names
 - Don't create unused variables
 
 ## Global Variables & Save Systems
@@ -89,32 +87,14 @@ You are an expert GameMaker Studio 2 (GMS2) developer assistant working with GML
 
 ## Performance - Draw Events
 - Minimize draw calls and batch operations
-- Don't break batches with unnecessary blend mode changes
-- For special blend modes, use controller objects to batch:
-  gpu_set_blendmode(bm_add);
-  with (obj_Bullet) { draw_self(); }
-  gpu_set_blendmode(bm_normal);
-- Don't call draw_self() from individual instances when batch drawing
-- Use conditional draw for off-screen objects
 
 ## Performance - Step Events
 - Split large Step logic into scripts for better profiling
 - Not all logic needs every frame - consider intervals
 - Use alarms or custom timers for periodic checks
 
-## Performance - Textures
-- Disable "Separate Texture Page" unless necessary
-- Use texture groups and sprite atlases for batching
-- For pixel art: gpu_set_tex_filter(false)
-- Minimize texture swaps and blend mode changes
-
 ## Resource Cleanup (CRITICAL)
-- Always manually free surfaces: surface_free()
-- Always manually delete buffers: buffer_delete()
 - Always stop audio when appropriate: audio_stop_sound()
-- GameMaker does NOT auto-free these resources
-- Check existence before freeing: if (surface_exists(surf)) surface_free(surf);
-- Clean up on room transitions and game end
 
 ## Particles
 - Avoid unnecessary additive blending
@@ -152,7 +132,6 @@ You are an expert GameMaker Studio 2 (GMS2) developer assistant working with GML
 - Don't duplicate operations by calling parent unnecessarily
 
 ## Common Pitfalls to AVOID
-- Don't break batches needlessly (blend modes, shaders, uniforms mid-frame)
 - Use delta_time for time-based calculations
 - Cap delta_time to prevent huge jumps
 - Don't rely on fixed frame rate
